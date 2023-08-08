@@ -6,30 +6,31 @@ console.log( 'js' );
 function getKoalas(){
   console.log( 'in getKoalas' );
   // axios call to server to get koalas
-  axios.get('/koalas/').then((response) => {
+  axios.get('/koalas').then((response) => {
     let koalaFromServer = response.data;
+    console.log('THIS IS DATA',koalaFromServer);
     let viewKoalas = document.querySelector('#viewKoalas');
     viewKoalas.innerHTML = '';
     for (const koala of koalaFromServer) {
 
-      if (koala.readyToTransfer === false) {
+      if (koala.transferstatus === false) {
         viewKoalas.innerHTML += `
           <tr>
               <td>${koala.name}</td>
               <td>${koala.age}</td>
               <td>${koala.gender}</td>
-              <td>${koala.readyToTransfer}</td>
+              <td>${koala.transferstatus}</td>
               <td>${koala.notes}</td>
               <td><button type="button" id="readyToTransferButton" onclick="readyToTransfer(event)">Ready To Transfer</button></td>
           </tr>
         `;
-      } else if (koala.readyToTransfer === true)
+      } else if (koala.transferstatus === true)
       viewKoalas.innerHTML += `
       <tr>
           <td>${koala.name}</td>
           <td>${koala.age}</td>
           <td>${koala.gender}</td>
-          <td>${koala.readyToTransfer}</td>
+          <td>${koala.transferstatus}</td>
           <td>${koala.notes}</td>
           <td></td>
       </tr>
@@ -93,32 +94,22 @@ function addKoalaToServer(newKoala){
 
           console.log('new koala to add', newKoala);
   } 
-// just in case this worked appeneding the koalas to the DOM 
 
-// start Get Koalas
-// function getKoalas(){
-//   console.log( 'in getKoalas' );
-//   // axios call to server to get koalas
-//   axios.get('/koalas/').then((response) => {
-//     let koalaFromServer = response.data;
-//     let viewKoalas = document.querySelector('#viewKoalas');
-//     viewKoalas.innerHTML = '';
+  // ready to transfer code
 
-//     for (const koala of koalaFromServer) {
-//         viewKoalas.innerHTML += `
-//           <tr>
-//               <td>${koala.name}</td>
-//               <td>${koala.age}</td>
-//               <td>${koala.gender}</td>
-//               <td>${koala.readyToTransfer}</td>
-//               <td>${koala.notes}</td>
-//               <td><button type="button" id="readyToTransferButton" onclick="readyToTransfer(event)">Ready To Transfer</button></td>
-//           </tr>
-//         `;
-//       }
+//   function readyToTransfer(event) {
+//     const row = event.target.closest('tr');
+//     const koalaId = row.dataset.koalaId;
 
-//   }).catch((error) => {
-//     console.log('Error in getKoalas', error);
-//     alert('Something exploded');
-//   });
-// } // end getKoalas
+//     axios.put(`/koalas/transfer/${koalaId}`)
+//     .then((response) => {
+//       const updatedKoala = response.data;
+//       updateKoalaRow(updatedKoala);
+//     })
+//     .catch((error) => {
+//         console.log('Error toggling readyToTransfer status', error);
+//         alert('Something went wrong');
+//     })
+// }
+
+

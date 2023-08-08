@@ -14,12 +14,17 @@ app.listen(PORT, () => {
   console.log('listening on port', PORT);
 });
 
-app.get('/koalas', function(req, res){
-  console.log('Request for /koalas was made');
-  res.send(koalaList);
-});
 
-app.post('/koalas', (req, res) => {
-  koalaList.push(req.body);
-  res.sendStatus(200);
-});
+//OLD ROUTES 
+
+// app.get('/koalas', function(req, res){
+//   console.log('Request for /koalas was made');
+//   res.send(koalaList);
+// });
+
+// app.post('/koalas', (req, res) => {
+//   koalaList.push(req.body);
+//   res.sendStatus(200);
+// });
+
+// SQL code that links to the DB
